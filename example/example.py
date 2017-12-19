@@ -174,7 +174,9 @@ def demo():
 
     general = ui.Growing_Menu("General",header_pos='headline')
     plugin_manager = ui.Growing_Menu("Plugin Manager",header_pos='headline')
+
     menubar.append(general)
+    menubar.append(plugin_manager)
 
     def toggle_menu(collapsed, menu):
         menubar.collapsed = collapsed
@@ -183,7 +185,7 @@ def demo():
         menu.collapsed = collapsed
 
     thumbbar.append(ui.Thumb('collapsed',general,label='G',on_val=False, off_val=True,setter=lambda x:toggle_menu(x,general)))
-    thumbbar.append(ui.Thumb('collapsed',plugin_manager,label='G',on_val=False, off_val=True,setter=lambda x:toggle_menu(x,plugin_manager)))
+    thumbbar.append(ui.Thumb('collapsed',plugin_manager,label='P',on_val=False, off_val=True,setter=lambda x:toggle_menu(x,plugin_manager)))
 
     # thumbbar.elements[-1].order = -10.0
     print('order'+str(thumbbar.elements[-1].order))
@@ -194,6 +196,9 @@ def demo():
     general.append(ui.Slider('b', foo,min=0.0,step=1,max=100.0,label='Blue'))
     general.append(ui.Switch('sel',foo,label='Fill'))
 
+    plugin_manager.append(ui.Info_Text('Plugin Manager'))
+    plugin_manager.append(ui.Button('Plugins', pr))
+    plugin_manager.append(ui.Switch('sel',foo,label='Fill'))
 
     # label = 'Ï'
     # label = 'R'
