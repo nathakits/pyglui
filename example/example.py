@@ -145,12 +145,14 @@ def demo():
             pass
 
     foo = Temp()
-    foo.bar = 34
+    foo.r = 10
+    foo.g = 20
+    foo.b = 20
     foo.sel = 'mi'
     foo.selection = ['€','mi', u"re"]
 
     foo.mytext = "some text"
-    foo.T = True
+    foo.general = True
     foo.L = False
 
     def set_text_val(val):
@@ -163,19 +165,16 @@ def demo():
     gui = ui.UI()
     gui.scale = 1.0
     thumbbar = ui.Scrolling_Menu("ThumbBar",pos=(-80,0),size=(0,0),header_pos='hidden')
-    menubar = ui.Scrolling_Menu("MenueBar",pos=(-500,0),size=(-90,0),header_pos='left')
+    menubar = ui.Scrolling_Menu("MenuBar",pos=(-500,0),size=(-90,0),header_pos='left')
 
 
     gui.append(menubar)
     gui.append(thumbbar)
 
 
-    T = ui.Growing_Menu("T menu",header_pos='headline')
-    menubar.append(T)
-    L = ui.Growing_Menu("L menu",header_pos='headline')
-    menubar.append(L)
-    M = ui.Growing_Menu("M menu",header_pos='headline')
-    menubar.append(M)
+    general = ui.Growing_Menu("General",header_pos='headline')
+    plugin_manager = ui.Growing_Menu("Plugin Manager",header_pos='headline')
+    menubar.append(general)
 
     def toggle_menu(collapsed, menu):
         menubar.collapsed = collapsed
@@ -183,30 +182,19 @@ def demo():
             m.collapsed = True
         menu.collapsed = collapsed
 
-
-    thumbbar.append(ui.Thumb('collapsed',T,label='T',on_val=False, off_val=True,setter=lambda x:toggle_menu(x,T)))
-    thumbbar.append(ui.Thumb('collapsed',L,label='L',on_val=False, off_val=True,setter=lambda x:toggle_menu(x,L)))
-    thumbbar.append(ui.Thumb('collapsed',M,label='M',on_val=False, off_val=True,setter=lambda x:toggle_menu(x,M)))
+    thumbbar.append(ui.Thumb('collapsed',general,label='G',on_val=False, off_val=True,setter=lambda x:toggle_menu(x,general)))
+    thumbbar.append(ui.Thumb('collapsed',plugin_manager,label='G',on_val=False, off_val=True,setter=lambda x:toggle_menu(x,plugin_manager)))
 
     # thumbbar.elements[-1].order = -10.0
     print('order'+str(thumbbar.elements[-1].order))
-    T.append(ui.Button("T test",pr))
-    T.append(ui.Info_Text("T best finerfpiwnesdco'n wfo;ineqrfo;inwefo'qefr voijeqfr'p9qefrp'i 'iqefr'ijqfr eqrfiqerfn'ioer"))
-    L.append(ui.Button("L test",pr))
-    L.append(ui.Button("L best",pr))
-    M.append(ui.Button("M test",pr))
-    M.append(ui.Button("M best",pr))
-    MM = ui.Growing_Menu("MM menu",pos=(0,0),size=(0,400))
-    M.append(MM)
-    for x in range(20):
-        MM.append(ui.Button("M test%s"%x,pr))
-    M.append(ui.Button("M best",pr))
-    M.append(ui.Button("M best",pr))
-    M.append(ui.Button("M best",pr))
-    M.append(ui.Button("M best",pr))
-    M.append(ui.Button("M best",pr))
-    M.append(ui.Button("M best",pr))
-    M.append(ui.Button("M best",pr))
+    general.append(ui.Info_Text('General Settings'))
+    general.append(ui.Button('Reset window Size', pr))
+    general.append(ui.Slider('r', foo,min=0.0,step=1,max=100.0,label='Red'))
+    general.append(ui.Slider('g', foo,min=0.0,step=1,max=100.0,label='Green'))
+    general.append(ui.Slider('b', foo,min=0.0,step=1,max=100.0,label='Blue'))
+    general.append(ui.Switch('sel',foo,label='Fill'))
+
+
     # label = 'Ï'
     # label = 'R'
     # gui.append(
@@ -241,7 +229,7 @@ def demo():
         glfwSwapBuffers(window)
         glfwPollEvents()
         # adjust_gl_view(1280,720,window)
-        glClearColor(.3,.4,.1,1)
+        glClearColor(.9,.9,.9,1)
         glClear(GL_COLOR_BUFFER_BIT)
 
     gui.terminate()
