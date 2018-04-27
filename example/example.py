@@ -13,7 +13,7 @@ import time
 from pyglui import ui
 from pyglui.cygl.utils import init
 from pyglui.cygl.utils import RGBA
-from pyglui.cygl.utils import draw_concentric_circles
+# from pyglui.cygl.utils import draw_concentric_circles
 from pyglui.pyfontstash import fontstash as fs
 from pyglui.cygl.shader import Shader
 
@@ -176,6 +176,8 @@ def demo():
     menubar.append(L)
     M = ui.Growing_Menu("M menu",header_pos='headline')
     menubar.append(M)
+    D = ui.Growing_Menu("D menu",header_pos='headline')
+    menubar.append(D)
 
     def toggle_menu(collapsed, menu):
         menubar.collapsed = collapsed
@@ -187,6 +189,7 @@ def demo():
     thumbbar.append(ui.Thumb('collapsed',T,label='T',on_val=False, off_val=True,setter=lambda x:toggle_menu(x,T)))
     thumbbar.append(ui.Thumb('collapsed',L,label='L',on_val=False, off_val=True,setter=lambda x:toggle_menu(x,L)))
     thumbbar.append(ui.Thumb('collapsed',M,label='M',on_val=False, off_val=True,setter=lambda x:toggle_menu(x,M)))
+    thumbbar.append(ui.Thumb('collapsed',D,label=chr(0xe050),on_val=False, off_val=True,setter=lambda x:toggle_menu(x,D),label_font='pupil_icons'))
 
     # thumbbar.elements[-1].order = -10.0
     print('order'+str(thumbbar.elements[-1].order))
@@ -241,7 +244,7 @@ def demo():
         glfwSwapBuffers(window)
         glfwPollEvents()
         # adjust_gl_view(1280,720,window)
-        glClearColor(.3,.4,.1,1)
+        glClearColor(.9,.9,.9,1)
         glClear(GL_COLOR_BUFFER_BIT)
 
     gui.terminate()
